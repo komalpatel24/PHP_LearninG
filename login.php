@@ -27,35 +27,53 @@
 <body>
 
     <?php
+
+        include 'config.php';
+
             $username = $password = "";
             $usernameErr = $passwordErr = "";
+
+            
 
             if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 if (empty($_POST["username"])) {
                   $usernameErr = "username is required";
                 } else {
-                  $username = test_input($_POST["username"]);
-                  // check if name only contains letters and whitespace
-                  if (!preg_match("/^[a-zA-Z-' ]*$/", $username)) {
-                    $usernameErr = "Only letters and white space allowed";
+                  // $username = test_input($_POST["username"]);
+                  if (!preg_match("/^[a-zA-Z-' ]*$/", $username = "admin")) {
+                    // $usernameErr = "Username is Not Valid";
+                    echo $username;
+                  }else{
+                  $usernameErr = "username is not valid";
                   }
                 }
 
-                if (empty($password)) {
-                    $passwordErr = 'Password should be not empty';
-                } elseif (!preg_match("/[A-Z]/", $password)) {
-                    $passwordErr = 'Password should contain at least one Capital Letter';
-                } elseif (!preg_match("/[a-z]/", $password)) {
-                    $passwordErr = 'Password should contain at least one small Letter';
-                } elseif (!preg_match("/\d/", $password)) {
-                    $passwordErr = 'Password should contain at least one digit';
-                } elseif (!preg_match("/\W/", $password)) {
-                    $passwordErr = 'Password should contain at least one special character';
-                } elseif (strlen($password) < 8) {
-                    $passwordErr = 'Password should be 8 characters';
+                if (empty($_POST["password"])) {
+                  $passwordErr = "Password is required";
+              } else {
+                  if (!preg_match("/.*^(?=.{8,20})(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).*$/", $password = "361999")) {
+                    echo $password;
+                  }else{
+                      $passwordErr = "password is not valid";
+                  } 
                 }
-
             }
+
+                // if (empty($password)) {
+                //     $passwordErr = 'Password should be not empty';
+                // } elseif (!preg_match("/[A-Z]/", $password)) {
+                //     $passwordErr = 'Password should contain at least one Capital Letter';
+                // } elseif (!preg_match("/[a-z]/", $password)) {
+                //     $passwordErr = 'Password should contain at least one small Letter';
+                // } elseif (!preg_match("/\d/", $password)) {
+                //     $passwordErr = 'Password should contain at least one digit';
+                // } elseif (!preg_match("/\W/", $password)) {
+                //     $passwordErr = 'Password should contain at least one special character';
+                // } elseif (strlen($password) < 6) {
+                //     $passwordErr = 'Password should be 6 characters';
+                // }
+
+            
             
         function test_input($data)
         {
@@ -81,15 +99,26 @@
                         <span class="error">* <?php echo $passwordErr; ?></span>
                 </div>
             <div class="form-check showPassword">
-                <input type="checkbox" class="form-check-input" id="asignInPass" >
+                <input type="checkbox" class="form-check-input" id="asignInPass" onclick="KIDS()" >
                 <label for="asignInPass" class="form-check-label">show password</label>
             </div>
-            <input type="submit" name="submit" value='Submit' class="btn btn-primary">
-            <input type="reset" name="submit"  value='Reset' class="btn btn-primary">
+            <input type="submit" name="submit" value='Submit' class="btn btn-info ">
+            <input type="reset" name="submit"  value='Reset' class="btn btn-danger">
             <br><br>
         </form>
 
 </div>
+
+      <script>
+         function KIDS(){
+              var K = document.getElementById("password");
+                 if(K.type === "password"){
+                    document.getElementById("password").setAttribute("type", "text"); 
+                 } else {
+                document.getElementById("password").setAttribute("type", "password"); 
+               }
+             }
+    </script>
 
 <?php
 echo "<h2>Your Input:</h2>";

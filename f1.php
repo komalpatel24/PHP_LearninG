@@ -1,55 +1,46 @@
 <?php
-$FirstName = $LastName = $Salary = $PhoneNo = $Email = $gen = $Pin = $Designation = "";
+
+include 'config.php';
+
+
+// $FirstName = $LastName = $Salary = $PhoneNo = $Email = $gen = $Pin = $Designation = "";
 $FirstNameErr = $LastNameErr = $SalaryErr = $PhoneNoErr = $EmailErr = $genErr = $PinErr = $DesignationErr = "";
 
-// if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  //   if (empty($_POST['FirstName'])) {
-  //       $FirstNameErr = 'first name should be not empty';
-  //   } elseif (!preg_match("/^[a-zA-Z' ]*$/", $_POST['FirstName'])) {
-  //       $FirstNameErr = 'only enter alphabet ';
+    if (isset($_POST['submit'])) {
 
-  //   } elseif (empty($_POST['LastName'])) {
-  //       $LastNameErr = 'last name should be not empty ';
-  //   } elseif (!preg_match("/^[a-zA-Z' ]*$/", $_POST['LastName'])) {
-  //       $LastNameErr = 'only enter alphabet ';
+      $selectTable = "SELECT * FROM student";
 
-  //   } elseif (empty($_POST['Salary'])) {
-  //       $SalaryErr = 'enter your  salary ';
-  //   } elseif (!preg_match("/\d/", $_POST['Salary'])) {
-  //       $SalaryErr = 'salary must be in digit';
+      if (!mysqli_query($conn, $selectTable)) {
+    $sql = "CREATE TABLE student (
+      id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+      FirstName VARCHAR(30) NOT NULL,
+      LastName VARCHAR(30) NOT NULL,
+      Salary text(50)NOT NULL,
+      PhoneNo text(10) NOT NULL,
+      Email text(150) NOT NULL,
+      gen text(150) NOT NULL,
+      Pin text(6) NOT NULL,
+      Designation text(255) NULL,
+      reg_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP)";
+        if (!mysqli_query($conn, $sql)) {
+          echo mysqli_error($conn);
+      }
+    }
+      $FirstName = $_POST['FirstName'];
+      $LastName = $_POST['LastName'];
+      $Salary = $_POST['Salary'];
+      $PhoneNo = $_POST['PhoneNo'];
+      $Email = $_POST['Email'];
+      $gen = $_POST['gen'];
+      $Pin = $_POST['Pin'];
+      // $Designation = $_POST['Designation'];
 
-  //   } elseif (empty($_POST['Email'])) {
-  //       $EmailErr = 'email should be not empty';
-  //   } elseif (!filter_var($_POST['Email'], FILTER_VALIDATE_EMAIL)) {
-  //       $EmailErr = 'email invalid'; }
-
-  // if (empty($_POST["gen"])) {
-  //   $genErr = "Gender is required";
-  // } else {
-  //   $gen = test_input($_POST["gen"]);
-  // }
-
-  // if (empty($_POST["PhoneNo"])) {
-  //   $PhoneNoErr = "PhoneNo is required";
-  // } else {
-  //   $PhoneNo = test_input($_POST["PhoneNo"]);
-  //   // check if e-mail address is well-formed
-  //   if (!is_numeric($PhoneNo)) {
-  //     $PhoneNoErr = "Invalid PhoneNo format";
-  //   }
-  // }
-
-  // if (empty($_POST["Designation"])) {
-  //   $DesignationErr = "Designation is required";
-  // } else {
-  //   $Designation = test_input($_POST["Designation"]);
-  // }
 
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($_POST["FirstName"])) {
       $FirstNameErr = "FirstName is required";
     } else {
-      $FirstName = test_input($_POST["FirstName"]);
+      // $FirstName = test_input($_POST["FirstName"]);
       // check if name only contains letters and whitespace
       if (!preg_match("/^[a-zA-Z-' ]*$/", $FirstName)) {
         $FirstNameErr = "Only letters and white space allowed";
@@ -59,7 +50,7 @@ $FirstNameErr = $LastNameErr = $SalaryErr = $PhoneNoErr = $EmailErr = $genErr = 
     if (empty($_POST["LastName"])) {
       $LastNameErr = "LastName is required";
     } else {
-      $LastName = test_input($_POST["LastName"]);
+      // $LastName = test_input($_POST["LastName"]);
       if (!preg_match("/^[a-zA-Z-' ]*$/", $LastName)) {
         $LastNameErr = "Only letters and white space allowed";
       }
@@ -69,7 +60,7 @@ $FirstNameErr = $LastNameErr = $SalaryErr = $PhoneNoErr = $EmailErr = $genErr = 
       $SalaryErr = "Salary is required";
     } else {
       $Salary = (int)$Salary;
-      $Salary = test_input($_POST["Salary"]);
+      // $Salary = test_input($_POST["Salary"]);
      if (!is_numeric($Salary)) {
         $SalaryErr = "Invalid Salary format";
       }
@@ -78,7 +69,7 @@ $FirstNameErr = $LastNameErr = $SalaryErr = $PhoneNoErr = $EmailErr = $genErr = 
     if (empty($_POST["PhoneNo"])) {
       $PhoneNoErr = "PhoneNo is required";
     } else {
-      $PhoneNo = test_input($_POST["PhoneNo"]);
+      // $PhoneNo = test_input($_POST["PhoneNo"]);
       // check if e-mail address is well-formed
       if (!is_numeric($PhoneNo)) {
         $PhoneNoErr = "Invalid PhoneNo format";
@@ -88,7 +79,7 @@ $FirstNameErr = $LastNameErr = $SalaryErr = $PhoneNoErr = $EmailErr = $genErr = 
     if (empty($_POST["Email"])) {
       $EmailErr = "Email is required";
     } else {
-      $Email = test_input($_POST["Email"]);
+      // $Email = test_input($_POST["Email"]);
       if (!filter_var($Email, FILTER_VALIDATE_EMAIL)) {
         $EmailErr = "Invalid Email format";
       }
@@ -97,7 +88,7 @@ $FirstNameErr = $LastNameErr = $SalaryErr = $PhoneNoErr = $EmailErr = $genErr = 
     if (empty($_POST["Pin"])) {
       $PinErr = "Pin is required";
     } else {
-      $Pin = test_input($_POST["Pin"]);
+      // $Pin = test_input($_POST["Pin"]);
       if (!preg_match("/^[1-9][0-9]{5}$/", $Pin)) {
         $PinErr = "Only 6 Number Pin is Valid";
       }
@@ -106,7 +97,7 @@ $FirstNameErr = $LastNameErr = $SalaryErr = $PhoneNoErr = $EmailErr = $genErr = 
     if (empty($_POST["gen"])) {
       $genErr = "Gender is required";
     } else {
-      $gen = test_input($_POST["gen"]);
+      // $gen = test_input($_POST["gen"]);
     }
   
     if (empty($_POST["Designation"])) {
@@ -116,12 +107,16 @@ $FirstNameErr = $LastNameErr = $SalaryErr = $PhoneNoErr = $EmailErr = $genErr = 
     }
   }
 
-function test_input($data)
-{
-  $data = trim($data);
-  $data = stripslashes($data);
-  $data = htmlspecialchars($data);
-  return $data;
+// function test_input($data)
+// {
+//   $data = trim($data);
+//   $data = stripslashes($data);
+//   $data = htmlspecialchars($data);
+//   return $data;
+// }
+
+$insertqury = "INSERT INTO student ('FirstName', 'LastName', 'Salary', 'PhoneNo' , 'Email', 'gen', 'Pin') VALUES ('$FirstName','$LastName','$Salary','$PhoneNo' , '$Email', '$gen', '$Pin')";
+
 }
 ?>
 
@@ -249,25 +244,7 @@ function test_input($data)
         </form>
 
   </div>
-  <?php
-echo "<h2>Your Input:</h2>";
-echo $FirstName;
-echo "<br>";
-echo $LastName;
-echo "<br>";
-echo $Salary;
-echo "<br>";
-echo $PhoneNo;
-echo "<br>";
-echo $Email;
-echo "<br>";
-echo $gen;
-echo "<br>";
-echo $Email;
-echo "<br>";
-echo $Designation;
-echo "<br>";
-?>
+  
 
 
 
@@ -275,3 +252,9 @@ echo "<br>";
 </body>
 
 </html>
+
+
+
+
+
+

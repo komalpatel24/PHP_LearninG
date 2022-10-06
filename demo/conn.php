@@ -1,7 +1,6 @@
 <?php
 $conn = mysqli_connect("localhost", "root", "");
 if ($conn) {
-
     
     if (!mysqli_select_db($conn, "test2")) {
     
@@ -12,7 +11,6 @@ if ($conn) {
         if ($rslt) {
     
             mysqli_select_db($conn, "test2");
-    
     
         } else {
     
