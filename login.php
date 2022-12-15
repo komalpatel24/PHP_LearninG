@@ -85,7 +85,7 @@
      ?>
 
 
-    <div class="container mt-5   border border-light text-white ">
+    <div class="container mt-5 border border-light text-white ">
         <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
             <h1 class="text-center p-3"> Login</h1>
                     <div class="form-group">

@@ -10,7 +10,6 @@
     
 <?php
 // PHP Script to Calculate Total Marks of Student and Display Grade
-
 // These are the marks of seven subjects
 $STUDANT_NAME = "Sharma Isha";
 $GUJ = 95;
@@ -29,7 +28,6 @@ echo "BA = " . $BA . "<br>";
 echo "STATE = " . $STATE . "<br>";
 echo "ACCOUNT = " . $ACCOUNT . "<br>";
 echo "SP = " . $SP . "<br>";
-
 
 $total = $GUJ + $ECO + $BA + $STATE + $ACCOUNT + $ENG + $SP;
 
