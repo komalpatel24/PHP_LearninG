@@ -14,9 +14,9 @@
           } elseif(empty($_POST["selectt"])) {
             $selecttErr = "1 option selectt required";
           }elseif($_POST["select"] === $_POST["selectt"]){
-            echo "U Don't deserve it...";
+            echo "<h1>U Don't deserve it...</h1>";
           }else {
-            echo "U Can Do It...";
+            echo "<h1>U Can Do It...</h1>";
           }
      }
      function setValue($value) {
